@@ -39,7 +39,7 @@ def _stb(json_orig_path, condition_names, num_trials, json_new_dir):
             [x for x in jdat["Steps"][0]['Transformations'] if x["Name"] == "Convolve"][0]["Input"] = to_convolve
 
             #Adds target trial regressor to dummy contrast
-            jdat['DummyContrasts'] = {
+            jdat["Steps"][0]['DummyContrasts'] = {
                 "Conditions": [f"trial-{trial_n:03d}_{condition_name}"],
                 "Type":"t"
             }
