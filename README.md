@@ -7,7 +7,7 @@ Generates json for each trial of each condition with single trial beta output.
 
 ## Options:
   -c, --condition_names TEXT  Condition names as they appear in the BIDS file.
-                              Takes multipe inputs separated by -c.
+                              Takes multiple inputs separated by -c.
 
   -n, --num_trials INTEGER    Number of trials. Defaults to 1.
   
