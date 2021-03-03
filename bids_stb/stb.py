@@ -23,8 +23,8 @@ def _stb(json_orig_path, condition_names, num_trials, json_new_dir):
                 jdat = json.load(h)
 
             #Replaces target condition with target trial and other trials regressors
-            jdat["Steps"][0]['Model']['X'].remove(condition_name)
-            jdat["Steps"][0]['Model']['X'] = [f"trial-{trial_n:03d}_{condition_name}",f"other_trials_{condition_name}"] + jdat["Steps"][0]['Model']['X']
+            jdat['Steps'][0]['Model']['X'].remove(condition_name)
+            jdat['Steps'][0]['Model']['X'] = [f'trial-{trial_n:03d}_{condition_name}',f'other_trials_{condition_name}'] + jdat['Steps'][0]['Model']['X']
 
             
             #Removes all model levels other than 1st level, contrasts, and existing dummy contrasts
@@ -32,16 +32,56 @@ def _stb(json_orig_path, condition_names, num_trials, json_new_dir):
             jdat['Steps'][0].pop('Contrasts', None)
             jdat['Steps'][0].pop('DummyContrasts', None)
 
+            #Adds transformations
+            transform_list = jdat['Steps'][0]['Transformations']
+            transform_list = [{"Name":"Factor","Input":["trial_number"]}] + transform_list
+            new_transforms = [{
+                  "Name": "And",
+                  "Input": [
+                    f"trial_number.{trial_n}",
+                    condition_name
+                  ],
+                  "Output": [
+                    f"trial-{trial_n:03d}_{condition_name}"
+                  ]
+                },            
+                {
+                  "Name": "Not",
+                  "Input": [
+                    f"trial_number.{trial_n}"
+                  ],
+                  "Output": [
+                    "other_trials"
+                  ]
+                },
+                {
+                  "Name": "And",
+                  "Input": [
+                    "other_trials",
+                    condition_name
+                  ],
+                  "Output": [
+                    f"other_trials_{condition_name}"
+                  ]
+                }]
+            try: 
+                c_ind = [idx for idx,s in enumerate(transform_list) if s['Name'] == 'Convolve'][0]
+                transform_list = transform_list[:c_ind] + new_transforms + transform_list[c_ind:]
+            except IndexError:
+                transform_list = transform_list + new_transforms
+            jdat['Steps'][0]['Transformations'] = transform_list   
+            
+            
             #Adds target trial regressors to convolve list
-            to_convolve = [x for x in jdat["Steps"][0]['Transformations'] if x["Name"] == "Convolve"][0]["Input"]
+            to_convolve = [x for x in jdat['Steps'][0]['Transformations'] if x['Name'] == 'Convolve'][0]['Input']
             to_convolve.remove(condition_name)
-            to_convolve = [f"trial-{trial_n:03d}_{condition_name}",f"other_trials_{condition_name}"] + to_convolve
-            [x for x in jdat["Steps"][0]['Transformations'] if x["Name"] == "Convolve"][0]["Input"] = to_convolve
+            to_convolve = [f'trial-{trial_n:03d}_{condition_name}',f'other_trials_{condition_name}'] + to_convolve
+            [x for x in jdat['Steps'][0]['Transformations'] if x['Name'] == 'Convolve'][0]['Input'] = to_convolve
 
             #Adds target trial regressor to dummy contrast
-            jdat["Steps"][0]['DummyContrasts'] = {
-                "Conditions": [f"trial-{trial_n:03d}_{condition_name}"],
-                "Type":"t"
+            jdat['Steps'][0]['DummyContrasts'] = {
+                'Conditions': [f'trial-{trial_n:03d}_{condition_name}'],
+                'Type':'t'
             }
             #generates output json'''
             json_new_path = os.path.join(json_new_dir, f'stb_trial-{trial_n:03d}_{condition_name}.json')
