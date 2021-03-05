@@ -121,339 +121,551 @@ def json_new_dir(tmpdir_factory):
 
 @pytest.fixture(scope="session")
 def expected_output():
-    return [{
-      "Name": "ds114_model1",
-      "Description": "sample model for ds114",
-      "Input": {
-        "task": "fingerfootlips"
-      },
-      "Steps": [
-        {
-          "Level": "run",
-          "Transformations": [
-            {
-              "Name": "Factor",
-              "Input": [
-                "trial_type"
-              ]
-            },
-            {
-              "Name": "Convolve",
-              "Input": [
+    return [
+      {
+        "Name": "ds114_model1",
+        "Description": "sample model for ds114",
+        "Input": {
+          "task": "fingerfootlips"
+        },
+        "Steps": [
+          {
+            "Level": "run",
+            "Transformations": [
+              {
+                'Name': 'Factor',
+                'Input': [
+                  'trial_number'
+                ]
+              },
+              {
+                "Name": "Factor",
+                "Input": [
+                  "trial_type"
+                ]
+              },
+              {
+                'Name': 'And',
+                'Input': [
+                  'trial_number.0',
+                  'trial_type.Foot'
+                ],
+                'Output': [
+                  'trial-000_trial_type.Foot'
+                ]
+              },
+              {
+                'Name': 'Not',
+                'Input': [
+                  'trial_number.0'
+                ], 
+                'Output': [
+                  'other_trials'
+                ]
+              },
+              {
+                'Name': 'And',
+                'Input': [
+                  'other_trials',
+                  'trial_type.Foot'
+                ],
+                'Output': [
+                  'other_trials_trial_type.Foot'
+                ]
+              },
+              {
+                "Name": "Convolve",
+                "Input": [
+                  "trial-000_trial_type.Foot",
+                  "other_trials_trial_type.Foot",
+                  "trial_type.Finger",
+                  "trial_type.Lips"
+                ]
+              }
+            ],
+            "Model": {
+              "X": [
                 "trial-000_trial_type.Foot",
                 "other_trials_trial_type.Foot",
                 "trial_type.Finger",
-                "trial_type.Lips"
-              ]
-            }
-          ],
-          "Model": {
-            "X": [
-              "trial-000_trial_type.Foot",
-              "other_trials_trial_type.Foot",
-              "trial_type.Finger",
-              "trial_type.Lips",
-              "framewise_displacement",
-              "trans_x",
-              "trans_y",
-              "trans_z",
-              "rot_x",
-              "rot_y",
-              "rot_z",
-              "a_comp_cor_00",
-              "a_comp_cor_01",
-              "a_comp_cor_02",
-              "a_comp_cor_03",
-              "a_comp_cor_04",
-              "a_comp_cor_05"
-            ]
-          }
-        }
-      ],
-      "DummyContrasts": {
-        "Conditions": [
-          "trial-000_trial_type.Foot"
-        ],
-        "Type": "t"
-      }
-    },
-    {
-      "Name": "ds114_model1",
-      "Description": "sample model for ds114",
-      "Input": {
-        "task": "fingerfootlips"
-      },
-      "Steps": [
-        {
-          "Level": "run",
-          "Transformations": [
-            {
-              "Name": "Factor",
-              "Input": [
-                "trial_type"
+                "trial_type.Lips",
+                "framewise_displacement",
+                "trans_x",
+                "trans_y",
+                "trans_z",
+                "rot_x",
+                "rot_y",
+                "rot_z",
+                "a_comp_cor_00",
+                "a_comp_cor_01",
+                "a_comp_cor_02",
+                "a_comp_cor_03",
+                "a_comp_cor_04",
+                "a_comp_cor_05"
               ]
             },
-            {
-              "Name": "Convolve",
-              "Input": [
+            "DummyContrasts": {
+              "Conditions": [
+                "trial-000_trial_type.Foot"
+              ],
+              "Type": "t"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ds114_model1",
+        "Description": "sample model for ds114",
+        "Input": {
+          "task": "fingerfootlips"
+        },
+        "Steps": [
+          {
+            "Level": "run",
+            "Transformations": [
+              {
+                'Name': 'Factor',
+                'Input': [
+                  'trial_number'
+                ]
+              },
+              {
+                "Name": "Factor",
+                "Input": [
+                  "trial_type"
+                ]
+              },
+              {
+                'Name': 'And',
+                'Input': [
+                  'trial_number.1',
+                  'trial_type.Foot'
+                ],
+                'Output': [
+                  'trial-001_trial_type.Foot'
+                ]
+              },
+              {
+                'Name': 'Not',
+                'Input': [
+                  'trial_number.1'
+                ], 
+                'Output': [
+                  'other_trials'
+                ]
+              },
+              {
+                'Name': 'And',
+                'Input': [
+                  'other_trials',
+                  'trial_type.Foot'
+                ],
+                'Output': [
+                  'other_trials_trial_type.Foot'
+                ]
+              },
+              {
+                "Name": "Convolve",
+                "Input": [
+                  "trial-001_trial_type.Foot",
+                  "other_trials_trial_type.Foot",
+                  "trial_type.Finger",
+                  "trial_type.Lips"
+                ]
+              }
+            ],
+            "Model": {
+              "X": [
                 "trial-001_trial_type.Foot",
                 "other_trials_trial_type.Foot",
                 "trial_type.Finger",
-                "trial_type.Lips"
-              ]
-            }
-          ],
-          "Model": {
-            "X": [
-              "trial-001_trial_type.Foot",
-              "other_trials_trial_type.Foot",
-              "trial_type.Finger",
-              "trial_type.Lips",
-              "framewise_displacement",
-              "trans_x",
-              "trans_y",
-              "trans_z",
-              "rot_x",
-              "rot_y",
-              "rot_z",
-              "a_comp_cor_00",
-              "a_comp_cor_01",
-              "a_comp_cor_02",
-              "a_comp_cor_03",
-              "a_comp_cor_04",
-              "a_comp_cor_05"
-            ]
-          }
-        }
-      ],
-      "DummyContrasts": {
-        "Conditions": [
-          "trial-001_trial_type.Foot"
-        ],
-        "Type": "t"
-      }
-    },
-    {
-      "Name": "ds114_model1",
-      "Description": "sample model for ds114",
-      "Input": {
-        "task": "fingerfootlips"
-      },
-      "Steps": [
-        {
-          "Level": "run",
-          "Transformations": [
-            {
-              "Name": "Factor",
-              "Input": [
-                "trial_type"
+                "trial_type.Lips",
+                "framewise_displacement",
+                "trans_x",
+                "trans_y",
+                "trans_z",
+                "rot_x",
+                "rot_y",
+                "rot_z",
+                "a_comp_cor_00",
+                "a_comp_cor_01",
+                "a_comp_cor_02",
+                "a_comp_cor_03",
+                "a_comp_cor_04",
+                "a_comp_cor_05"
               ]
             },
-            {
-              "Name": "Convolve",
-              "Input": [
+            "DummyContrasts": {
+              "Conditions": [
+                "trial-001_trial_type.Foot"
+              ],
+              "Type": "t"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ds114_model1",
+        "Description": "sample model for ds114",
+        "Input": {
+          "task": "fingerfootlips"
+        },
+        "Steps": [
+          {
+            "Level": "run",
+            "Transformations": [
+              {
+                'Name': 'Factor',
+                'Input': [
+                  'trial_number'
+                ]
+              },
+              {
+                "Name": "Factor",
+                "Input": [
+                  "trial_type"
+                ]
+              },
+              {
+                'Name': 'And',
+                'Input': [
+                  'trial_number.2',
+                  'trial_type.Foot'
+                ],
+                'Output': [
+                  'trial-002_trial_type.Foot'
+                ]
+              },
+              {
+                'Name': 'Not',
+                'Input': [
+                  'trial_number.2'
+                ], 
+                'Output': [
+                  'other_trials'
+                ]
+              },
+              {
+                'Name': 'And',
+                'Input': [
+                  'other_trials',
+                  'trial_type.Foot'
+                ],
+                'Output': [
+                  'other_trials_trial_type.Foot'
+                ]
+              },
+              {
+                "Name": "Convolve",
+                "Input": [
+                  "trial-002_trial_type.Foot",
+                  "other_trials_trial_type.Foot",
+                  "trial_type.Finger",
+                  "trial_type.Lips"
+                ]
+              }
+            ],
+            "Model": {
+              "X": [
                 "trial-002_trial_type.Foot",
                 "other_trials_trial_type.Foot",
                 "trial_type.Finger",
-                "trial_type.Lips"
-              ]
-            }
-          ],
-          "Model": {
-            "X": [
-              "trial-002_trial_type.Foot",
-              "other_trials_trial_type.Foot",
-              "trial_type.Finger",
-              "trial_type.Lips",
-              "framewise_displacement",
-              "trans_x",
-              "trans_y",
-              "trans_z",
-              "rot_x",
-              "rot_y",
-              "rot_z",
-              "a_comp_cor_00",
-              "a_comp_cor_01",
-              "a_comp_cor_02",
-              "a_comp_cor_03",
-              "a_comp_cor_04",
-              "a_comp_cor_05"
-            ]
-          }
-        }
-      ],
-      "DummyContrasts": {
-        "Conditions": [
-          "trial-002_trial_type.Foot"
-        ],
-        "Type": "t"
-      }
-    },
-    {
-      "Name": "ds114_model1",
-      "Description": "sample model for ds114",
-      "Input": {
-        "task": "fingerfootlips"
-      },
-      "Steps": [
-        {
-          "Level": "run",
-          "Transformations": [
-            {
-              "Name": "Factor",
-              "Input": [
-                "trial_type"
+                "trial_type.Lips",
+                "framewise_displacement",
+                "trans_x",
+                "trans_y",
+                "trans_z",
+                "rot_x",
+                "rot_y",
+                "rot_z",
+                "a_comp_cor_00",
+                "a_comp_cor_01",
+                "a_comp_cor_02",
+                "a_comp_cor_03",
+                "a_comp_cor_04",
+                "a_comp_cor_05"
               ]
             },
-            {
-              "Name": "Convolve",
-              "Input": [
+            "DummyContrasts": {
+              "Conditions": [
+                "trial-002_trial_type.Foot"
+              ],
+              "Type": "t"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ds114_model1",
+        "Description": "sample model for ds114",
+        "Input": {
+          "task": "fingerfootlips"
+        },
+        "Steps": [
+          {
+            "Level": "run",
+            "Transformations": [
+              {
+                'Name': 'Factor',
+                'Input': [
+                  'trial_number'
+                ]
+              },
+              {
+                "Name": "Factor",
+                "Input": [
+                  "trial_type"
+                ]
+              },
+              {
+                'Name': 'And',
+                'Input': [
+                  'trial_number.0',
+                  'trial_type.Lips'
+                ],
+                'Output': [
+                  'trial-000_trial_type.Lips'
+                ]
+              },
+              {
+                'Name': 'Not',
+                'Input': [
+                  'trial_number.0'
+                ], 
+                'Output': [
+                  'other_trials'
+                ]
+              },
+              {
+                'Name': 'And',
+                'Input': [
+                  'other_trials',
+                  'trial_type.Lips'
+                ],
+                'Output': [
+                  'other_trials_trial_type.Lips'
+                ]
+              },
+              {
+                "Name": "Convolve",
+                "Input": [
+                  "trial-000_trial_type.Lips",
+                  "other_trials_trial_type.Lips",
+                  "trial_type.Finger",
+                  "trial_type.Foot"
+                ]
+              }
+            ],
+            "Model": {
+              "X": [
                 "trial-000_trial_type.Lips",
                 "other_trials_trial_type.Lips",
                 "trial_type.Finger",
-                "trial_type.Foot"
-              ]
-            }
-          ],
-          "Model": {
-            "X": [
-              "trial-000_trial_type.Lips",
-              "other_trials_trial_type.Lips",
-              "trial_type.Finger",
-              "trial_type.Foot",
-              "framewise_displacement",
-              "trans_x",
-              "trans_y",
-              "trans_z",
-              "rot_x",
-              "rot_y",
-              "rot_z",
-              "a_comp_cor_00",
-              "a_comp_cor_01",
-              "a_comp_cor_02",
-              "a_comp_cor_03",
-              "a_comp_cor_04",
-              "a_comp_cor_05"
-            ]
-          }
-        }
-      ],
-      "DummyContrasts": {
-        "Conditions": [
-          "trial-000_trial_type.Lips"
-        ],
-        "Type": "t"
-      }
-    },
-    {
-      "Name": "ds114_model1",
-      "Description": "sample model for ds114",
-      "Input": {
-        "task": "fingerfootlips"
-      },
-      "Steps": [
-        {
-          "Level": "run",
-          "Transformations": [
-            {
-              "Name": "Factor",
-              "Input": [
-                "trial_type"
+                "trial_type.Foot",
+                "framewise_displacement",
+                "trans_x",
+                "trans_y",
+                "trans_z",
+                "rot_x",
+                "rot_y",
+                "rot_z",
+                "a_comp_cor_00",
+                "a_comp_cor_01",
+                "a_comp_cor_02",
+                "a_comp_cor_03",
+                "a_comp_cor_04",
+                "a_comp_cor_05"
               ]
             },
-            {
-              "Name": "Convolve",
-              "Input": [
+            "DummyContrasts": {
+              "Conditions": [
+                "trial-000_trial_type.Lips"
+              ],
+              "Type": "t"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ds114_model1",
+        "Description": "sample model for ds114",
+        "Input": {
+          "task": "fingerfootlips"
+        },
+        "Steps": [
+          {
+            "Level": "run",
+            "Transformations": [
+              {
+                'Name': 'Factor',
+                'Input': [
+                  'trial_number'
+                ]
+              },
+              {
+                "Name": "Factor",
+                "Input": [
+                  "trial_type"
+                ]
+              },
+              {
+                'Name': 'And',
+                'Input': [
+                  'trial_number.1',
+                  'trial_type.Lips'
+                ],
+                'Output': [
+                  'trial-001_trial_type.Lips'
+                ]
+              },
+              {
+                'Name': 'Not',
+                'Input': [
+                  'trial_number.1'
+                ], 
+                'Output': [
+                  'other_trials'
+                ]
+              },
+              {
+                'Name': 'And',
+                'Input': [
+                  'other_trials',
+                  'trial_type.Lips'
+                ],
+                'Output': [
+                  'other_trials_trial_type.Lips'
+                ]
+              },
+              {
+                "Name": "Convolve",
+                "Input": [
+                  "trial-001_trial_type.Lips",
+                  "other_trials_trial_type.Lips",
+                  "trial_type.Finger",
+                  "trial_type.Foot"
+                ]
+              }
+            ],
+            "Model": {
+              "X": [
                 "trial-001_trial_type.Lips",
                 "other_trials_trial_type.Lips",
                 "trial_type.Finger",
-                "trial_type.Foot"
-              ]
-            }
-          ],
-          "Model": {
-            "X": [
-              "trial-001_trial_type.Lips",
-              "other_trials_trial_type.Lips",
-              "trial_type.Finger",
-              "trial_type.Foot",
-              "framewise_displacement",
-              "trans_x",
-              "trans_y",
-              "trans_z",
-              "rot_x",
-              "rot_y",
-              "rot_z",
-              "a_comp_cor_00",
-              "a_comp_cor_01",
-              "a_comp_cor_02",
-              "a_comp_cor_03",
-              "a_comp_cor_04",
-              "a_comp_cor_05"
-            ]
-          }
-        }
-      ],
-      "DummyContrasts": {
-        "Conditions": [
-          "trial-001_trial_type.Lips"
-        ],
-        "Type": "t"
-      }
-    },
-    {
-      "Name": "ds114_model1",
-      "Description": "sample model for ds114",
-      "Input": {
-        "task": "fingerfootlips"
-      },
-      "Steps": [
-        {
-          "Level": "run",
-          "Transformations": [
-            {
-              "Name": "Factor",
-              "Input": [
-                "trial_type"
+                "trial_type.Foot",
+                "framewise_displacement",
+                "trans_x",
+                "trans_y",
+                "trans_z",
+                "rot_x",
+                "rot_y",
+                "rot_z",
+                "a_comp_cor_00",
+                "a_comp_cor_01",
+                "a_comp_cor_02",
+                "a_comp_cor_03",
+                "a_comp_cor_04",
+                "a_comp_cor_05"
               ]
             },
-            {
-              "Name": "Convolve",
-              "Input": [
+            "DummyContrasts": {
+              "Conditions": [
+                "trial-001_trial_type.Lips"
+              ],
+              "Type": "t"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ds114_model1",
+        "Description": "sample model for ds114",
+        "Input": {
+          "task": "fingerfootlips"
+        },
+        "Steps": [
+          {
+            "Level": "run",
+            "Transformations": [
+              {
+                'Name': 'Factor',
+                'Input': [
+                  'trial_number'
+                ]
+              },
+              {
+                "Name": "Factor",
+                "Input": [
+                  "trial_type"
+                ]
+              },
+              {
+                'Name': 'And',
+                'Input': [
+                  'trial_number.2',
+                  'trial_type.Lips'
+                ],
+                'Output': [
+                  'trial-002_trial_type.Lips'
+                ]
+              },
+              {
+                'Name': 'Not',
+                'Input': [
+                  'trial_number.2'
+                ], 
+                'Output': [
+                  'other_trials'
+                ]
+              },
+              {
+                'Name': 'And',
+                'Input': [
+                  'other_trials',
+                  'trial_type.Lips'
+                ],
+                'Output': [
+                  'other_trials_trial_type.Lips'
+                ]
+              },
+              {
+                "Name": "Convolve",
+                "Input": [
+                  "trial-002_trial_type.Lips",
+                  "other_trials_trial_type.Lips",
+                  "trial_type.Finger",
+                  "trial_type.Foot"
+                ]
+              }
+            ],
+            "Model": {
+              "X": [
                 "trial-002_trial_type.Lips",
                 "other_trials_trial_type.Lips",
                 "trial_type.Finger",
-                "trial_type.Foot"
+                "trial_type.Foot",
+                "framewise_displacement",
+                "trans_x",
+                "trans_y",
+                "trans_z",
+                "rot_x",
+                "rot_y",
+                "rot_z",
+                "a_comp_cor_00",
+                "a_comp_cor_01",
+                "a_comp_cor_02",
+                "a_comp_cor_03",
+                "a_comp_cor_04",
+                "a_comp_cor_05"
               ]
+            },
+            "DummyContrasts": {
+              "Conditions": [
+                "trial-002_trial_type.Lips"
+              ],
+              "Type": "t"
             }
-          ],
-          "Model": {
-            "X": [
-              "trial-002_trial_type.Lips",
-              "other_trials_trial_type.Lips",
-              "trial_type.Finger",
-              "trial_type.Foot",
-              "framewise_displacement",
-              "trans_x",
-              "trans_y",
-              "trans_z",
-              "rot_x",
-              "rot_y",
-              "rot_z",
-              "a_comp_cor_00",
-              "a_comp_cor_01",
-              "a_comp_cor_02",
-              "a_comp_cor_03",
-              "a_comp_cor_04",
-              "a_comp_cor_05"
-            ]
           }
-        }
-      ],
-      "DummyContrasts": {
-        "Conditions": [
-          "trial-002_trial_type.Lips"
-        ],
-        "Type": "t"
+        ]
       }
-    }] 
+    ] 
