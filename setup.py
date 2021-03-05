@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 setup(
@@ -8,7 +8,7 @@ setup(
     author_email='chrisclaycamp@gmail.com',
     description='Small function to produce a set of single trial beta models from a BIDS compliant statistical model.',
     url='https://github.com/nimh-comppsych/BIDS_stb',
-    py_modules=['bids_stb'],
+    py_modules=find_packages(),
     install_requires=[
         'Click'
     ],
