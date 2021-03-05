@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='BIDS_stb',
-    version='0.0.1',
+    version='0.0.2',
     author='Chris C. Camp',
     author_email='chrisclaycamp@gmail.com',
     description='Small function to produce a set of single trial beta models from a BIDS compliant statistical model.',
