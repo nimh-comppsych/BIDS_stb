@@ -123,7 +123,7 @@ def json_new_dir(tmpdir_factory):
 def expected_output():
     return [
       {
-        "Name": "ds114_model1",
+        "Name": "ds114_model1_trial-000_trial_type.Foot",
         "Description": "sample model for ds114",
         "Input": {
           "task": "fingerfootlips"
@@ -214,7 +214,7 @@ def expected_output():
         ]
       },
       {
-        "Name": "ds114_model1",
+        "Name": "ds114_model1_trial-001_trial_type.Foot",
         "Description": "sample model for ds114",
         "Input": {
           "task": "fingerfootlips"
@@ -305,7 +305,7 @@ def expected_output():
         ]
       },
       {
-        "Name": "ds114_model1",
+        "Name": "ds114_model1_trial-002_trial_type.Foot",
         "Description": "sample model for ds114",
         "Input": {
           "task": "fingerfootlips"
@@ -396,7 +396,7 @@ def expected_output():
         ]
       },
       {
-        "Name": "ds114_model1",
+        "Name": "ds114_model1_trial-000_trial_type.Lips",
         "Description": "sample model for ds114",
         "Input": {
           "task": "fingerfootlips"
@@ -487,7 +487,7 @@ def expected_output():
         ]
       },
       {
-        "Name": "ds114_model1",
+        "Name": "ds114_model1_trial-001_trial_type.Lips",
         "Description": "sample model for ds114",
         "Input": {
           "task": "fingerfootlips"
@@ -578,7 +578,7 @@ def expected_output():
         ]
       },
       {
-        "Name": "ds114_model1",
+        "Name": "ds114_model1_trial-002_trial_type.Lips",
         "Description": "sample model for ds114",
         "Input": {
           "task": "fingerfootlips"

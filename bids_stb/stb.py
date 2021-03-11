@@ -21,7 +21,7 @@ def _stb(json_orig_path, condition_names, num_trials, json_new_dir):
         for trial_n in range(num_trials):
             with open(json_orig_path, 'r') as h:
                 jdat = json.load(h)
-
+            jdat['Name'] = f"{jdat['Name']}_trial-{trial_n:03d}_{condition_name}"
             #Replaces target condition with target trial and other trials regressors
             jdat['Steps'][0]['Model']['X'].remove(condition_name)
             jdat['Steps'][0]['Model']['X'] = [f'trial-{trial_n:03d}_{condition_name}',f'other_trials_{condition_name}'] + jdat['Steps'][0]['Model']['X']
